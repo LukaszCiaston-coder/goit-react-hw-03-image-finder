@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Searchbar } from './Searchbar/Searchbar';
-
+import { ImageGallery } from './ImageGallery/ImageGallery';
 
 const API_KEY = '36779044-50439618c93dcb9f395d82e01';
 
@@ -73,13 +73,20 @@ export class App extends Component {
   };
 
   render() {
-    const {} = this.state;
+    const { images, isLoading, selectedImage } = this.state;
 
     return (
       <div className="app">
         <Searchbar onSubmit={this.handleSearch} />
 
-        {/* Renderuj pozostałe elementy aplikacji */}
+        {images.length > 0 && (
+          <ImageGallery
+            images={images}
+            onItemClick={this.handleItemClick}
+          />
+        )}
+
+        {/* Render other components */}
       </div>
     );
   }

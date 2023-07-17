@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import styles from './Searchbar.module.css'; // Załóżmy, że tworzymy osobny plik CSS o nazwie "Searchbar.module.css" dla stylów komponentu Searchbar
-
+import styles from './Searchbar.module.css'; 
 export class Searchbar extends Component {
   state = {
     query: '',
