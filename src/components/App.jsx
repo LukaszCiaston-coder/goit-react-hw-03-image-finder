@@ -3,18 +3,18 @@ import axios from 'axios';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
-import Loader from './Loader/Loader'; 
+import Loader from './Loader/Loader';
+import Modal from './Modal/Modal';
 
 const API_KEY = '36779044-50439618c93dcb9f395d82e01';
-
 export class App extends Component {
   state = {
-    query: '',
-    images: [],
-    page: 1,
-    isLoading: false,
-    isLoadingMore: false,
-    selectedImage: null,
+  query: '',
+  images: [],
+  page: 1,
+  isLoading: false,
+  isLoadingMore: false,
+  selectedImage: null,
   };
 
   handleSearch = (newQuery) => {
@@ -76,25 +76,29 @@ export class App extends Component {
     }
   };
 
-  render() {
-    const { images, isLoading } = this.state;
+render() {
+    const { images, isLoading, selectedImage } = this.state;
 
-  return (
-    <div className="app">
-      <Searchbar onSubmit={this.handleSearch} />
+    return (
+      <div className="app">
+        <Searchbar onSubmit={this.handleSearch} />
 
-      {isLoading && <Loader />}
+        {isLoading && <Loader />}
 
-      {images.length > 0 && (
-        <ImageGallery images={images} onItemClick={this.handleItemClick} />
-      )}
+        {images.length > 0 && (
+          <ImageGallery images={images} onItemClick={this.handleItemClick} />
+        )}
 
-      {images.length > 0 && !isLoading && (
-        <Button onClick={this.handleLoadMore} />
-      )}
+        {images.length > 0 && !isLoading && (
+          <Button onClick={this.handleLoadMore} />
+        )}
 
-      {/* Render other components */}
-    </div>
+        {selectedImage && (
+          <Modal image={selectedImage} onClose={this.handleCloseModal} />
+        )}
+
+        {/* Render other components */}
+      </div>
     );
   }
 }
