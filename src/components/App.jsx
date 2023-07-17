@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import Button from './Button/Button';
 
 const API_KEY = '36779044-50439618c93dcb9f395d82e01';
 
@@ -14,7 +15,7 @@ export class App extends Component {
     selectedImage: null,
   };
 
-  handleSearch = newQuery => {
+  handleSearch = (newQuery) => {
     this.setState(
       {
         query: newQuery,
@@ -27,14 +28,14 @@ export class App extends Component {
 
   handleLoadMore = () => {
     this.setState(
-      prevState => ({
+      (prevState) => ({
         page: prevState.page + 1,
       }),
       this.fetchImages
     );
   };
 
-  handleItemClick = image => {
+  handleItemClick = (image) => {
     this.setState({
       selectedImage: image,
     });
@@ -60,7 +61,7 @@ export class App extends Component {
         `https://pixabay.com/api/?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
       );
 
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         images: [...prevState.images, ...response.data.hits],
         isLoading: false,
       }));
@@ -80,10 +81,11 @@ export class App extends Component {
         <Searchbar onSubmit={this.handleSearch} />
 
         {images.length > 0 && (
-          <ImageGallery
-            images={images}
-            onItemClick={this.handleItemClick}
-          />
+          <ImageGallery images={images} onItemClick={this.handleItemClick} />
+        )}
+
+        {images.length > 0 && !isLoading && (
+          <Button onClick={this.handleLoadMore} />
         )}
 
         {/* Render other components */}

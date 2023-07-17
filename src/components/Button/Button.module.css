@@ -1,0 +1,22 @@
+.button {
+    background: linear-gradient(45deg, #3498db, #b3b7f1, #3498db);
+    background-size: 200% 200%;
+    background-position: bottom left;
+    transition: background-position 0.5s;
+    color: #f8f5f5;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+.button:hover {
+    background-position: top right;
+}
+
+.load-more {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
