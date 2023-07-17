@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
+import Loader from './Loader/Loader'; 
 
 const API_KEY = '36779044-50439618c93dcb9f395d82e01';
 
@@ -12,6 +13,7 @@ export class App extends Component {
     images: [],
     page: 1,
     isLoading: false,
+    isLoadingMore: false,
     selectedImage: null,
   };
 
@@ -30,6 +32,7 @@ export class App extends Component {
     this.setState(
       (prevState) => ({
         page: prevState.page + 1,
+        isLoadingMore: true,
       }),
       this.fetchImages
     );
@@ -74,22 +77,24 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isLoading, selectedImage } = this.state;
+    const { images, isLoading } = this.state;
 
-    return (
-      <div className="app">
-        <Searchbar onSubmit={this.handleSearch} />
+  return (
+    <div className="app">
+      <Searchbar onSubmit={this.handleSearch} />
 
-        {images.length > 0 && (
-          <ImageGallery images={images} onItemClick={this.handleItemClick} />
-        )}
+      {isLoading && <Loader />}
 
-        {images.length > 0 && !isLoading && (
-          <Button onClick={this.handleLoadMore} />
-        )}
+      {images.length > 0 && (
+        <ImageGallery images={images} onItemClick={this.handleItemClick} />
+      )}
 
-        {/* Render other components */}
-      </div>
+      {images.length > 0 && !isLoading && (
+        <Button onClick={this.handleLoadMore} />
+      )}
+
+      {/* Render other components */}
+    </div>
     );
   }
 }
